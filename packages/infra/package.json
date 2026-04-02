@@ -1,0 +1,27 @@
+{
+  "name": "@crs/infra",
+  "version": "0.1.0",
+  "private": true,
+  "bin": {
+    "cdk": "bin/cdk.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/jest": "^30",
+    "@types/node": "^24.10.1",
+    "esbuild": "^0.27.5",
+    "jest": "^30",
+    "ts-jest": "^29",
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "@crs/functions": "workspace:*",
+    "aws-cdk-lib": "^2.246.0",
+    "constructs": "^10.6.0"
+  }
+}

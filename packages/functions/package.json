@@ -1,0 +1,13 @@
+{
+  "name": "@crs/functions",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@pothos/core": "^4.12.0",
+    "graphql": "^16.13.2",
+    "graphql-yoga": "^5.19.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.161"
+  }
+}
