@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Lambda Live Debugger",
+      "type": "shell",
+      "command": "npx lld",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Starting the debugger",
+          "endsPattern": "Debugger started!"
+        }
+      }
+    }
+  ]
+}

@@ -16,20 +16,31 @@
       "request": "launch",
       "name": "Next.js Dev",
       "runtimeExecutable": "pnpm",
-      "args": ["--filter", "web", "dev"],
+      "args": ["dev"],
       "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/packages/web/.env.local",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
         "action": "debugWithChrome"
       },
-      "cwd": "${workspaceFolder}"
-    }
-  ],
-  "compounds": [
+      "cwd": "${workspaceFolder}/packages/web"
+    },
     {
+      "type": "node",
+      "request": "launch",
       "name": "Full Debug (Lambda + Next.js)",
-      "configurations": ["Lambda Live Debugger", "Next.js Dev"]
+      "runtimeExecutable": "pnpm",
+      "args": ["dev"],
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/packages/web/.env.local",
+      "preLaunchTask": "Lambda Live Debugger",
+      "serverReadyAction": {
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      },
+      "cwd": "${workspaceFolder}/packages/web"
     }
   ]
 }

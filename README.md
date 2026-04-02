@@ -90,54 +90,81 @@ npx cdk bootstrap aws://ACCOUNT_ID/ap-northeast-1 --profile my-cdk
 
 ## 開発コマンド
 
-すべて `packages/infra/` から実行。
-ステージはデフォルトで `dev-launch`。変更する場合は `-c stage=<名前>` を付ける。
+すべてプロジェクトルートから実行。
+AWS プロファイルは `AWS_PROFILE` 環境変数で指定する。
 
 ```bash
-cd packages/infra
-
 # テンプレート確認（ローカルのみ、AWSに接続しない）
-npx cdk synth --profile my-cdk
+AWS_PROFILE=my-cdk pnpm cdk:synth
 
 # 差分確認
-npx cdk diff --profile my-cdk
+AWS_PROFILE=my-cdk pnpm cdk:diff
 
 # 全スタックデプロイ（API → Web の順に自動実行）
-npx cdk deploy --all --profile my-cdk
-
-# 個別デプロイ
-npx cdk deploy rehacul-dev-launch-api --profile my-cdk
-npx cdk deploy rehacul-dev-launch-web --profile my-cdk
+# デプロイ後、API URL 等が packages/web/.env.local に自動反映される
+AWS_PROFILE=my-cdk pnpm cdk:deploy
 
 # 別ステージにデプロイ（例: staging）
-npx cdk deploy --all -c stage=staging --profile my-cdk
+AWS_PROFILE=my-cdk pnpm cdk:deploy -- -c stage=staging
 
 # 全スタック削除
-npx cdk destroy --all --profile my-cdk
+AWS_PROFILE=my-cdk pnpm cdk -- destroy --all
+
+# .env.local を手動で再生成（デプロイ済みの場合）
+pnpm env:sync
 ```
+
+ステージはデフォルトで `dev-launch`。
+
+## ローカル開発
+
+### 前提: 環境変数の準備
+
+Next.js が使う環境変数（API URL 等）は `packages/web/.env.local` から読み込まれる。
+このファイルはデプロイ時に自動生成されるが、手動で再生成もできる。
+
+```bash
+# デプロイ時に自動生成される（cdk:deploy に組み込み済み）
+AWS_PROFILE=my-cdk pnpm cdk:deploy
+
+# 手動で再生成する場合（デプロイ済みの cdk-outputs.json から）
+pnpm env:sync
+```
+
+> **環境変数を追加するとき:**
+> 1. CDK で `new CfnOutput(this, "MyOutput", { value: ... })` を追加
+> 2. `scripts/env-mapping.json` に `"MyOutput": "NEXT_PUBLIC_MY_VAR"` を追加
+> 3. デプロイすると `.env.local` に自動反映される
+>
+> マッピングが漏れている場合はスクリプトが警告を出す。
+
+### 起動
+
+```bash
+# Next.js 開発サーバー (http://localhost:3000)
+pnpm dev
+
+# Lambda Live Debugger のみ
+pnpm debug
+
+# Next.js + Lambda Live Debugger を同時起動
+pnpm dev:debug
+```
+
+VS Code の F5 からも起動できる（デバッグパネルで選択）:
+- **Next.js Dev** — サーバーサイドにブレークポイント可
+- **Lambda Live Debugger** — Lambda にブレークポイント可
+- **Full Debug (Lambda + Next.js)** — 両方同時起動
 
 ## リント・フォーマット
 
 ```bash
-# ルートから実行
 pnpm lint          # チェックのみ
 pnpm lint:fix      # 自動修正
 pnpm format        # フォーマット
 ```
 
 保存時に自動フォーマットされます（VSCode + Biome 拡張機能が必要）。
-
-## Lambda Live Debugger
-
-AWS上のLambdaへのリクエストをローカルPCにルーティングし、VS Codeでブレークポイントデバッグできる。
-コード変更は再デプロイ不要で即反映。
-
-```bash
-# ターミナルから起動
-pnpm debug
-
-# または VS Code で F5（Lambda Live Debugger）
-```
 
 ## GraphQL エンドポイント
 
