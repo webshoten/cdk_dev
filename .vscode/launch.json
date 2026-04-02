@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Lambda Live Debugger",
+      "runtimeExecutable": "npx",
+      "args": ["lld"],
+      "console": "integratedTerminal",
+      "restart": true,
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

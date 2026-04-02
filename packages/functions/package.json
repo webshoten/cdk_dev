@@ -8,6 +8,7 @@
     "graphql-yoga": "^5.19.0"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.161"
+    "@types/aws-lambda": "^8.10.161",
+    "@types/node": "^24.12.0"
   }
 }
