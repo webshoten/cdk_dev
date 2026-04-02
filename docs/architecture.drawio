@@ -1,54 +1,100 @@
-<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+<mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
   <root>
     <mxCell id="0"/>
     <mxCell id="1" parent="0"/>
     <!-- Title -->
     <mxCell id="2" value="CRS SST - CDK Architecture" style="text;html=1;fontSize=20;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
-      <mxGeometry x="340" y="30" width="400" height="40" as="geometry"/>
+      <mxGeometry x="340" y="20" width="400" height="40" as="geometry"/>
     </mxCell>
     <!-- AWS Cloud boundary -->
     <mxCell id="3" value="AWS Cloud (ap-northeast-1)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud;strokeColor=#232F3E;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;spacingTop=5;dashed=0;" vertex="1" parent="1">
-      <mxGeometry x="140" y="90" width="800" height="400" as="geometry"/>
+      <mxGeometry x="140" y="70" width="760" height="700" as="geometry"/>
     </mxCell>
     <!-- Client -->
     <mxCell id="4" value="Client" style="shape=mxgraph.aws4.client;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
-      <mxGeometry x="20" y="240" width="78" height="76" as="geometry"/>
+      <mxGeometry x="20" y="340" width="78" height="76" as="geometry"/>
+    </mxCell>
+
+    <!-- ===== API Stack ===== -->
+    <mxCell id="100" value="rehacul-dev-launch-api Stack" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#147EBA;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;spacingTop=5;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="160" y="100" width="500" height="250" as="geometry"/>
     </mxCell>
     <!-- API Gateway -->
-    <mxCell id="5" value="API Gateway&lt;br&gt;HTTP API" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
-      <mxGeometry x="310" y="240" width="60" height="60" as="geometry"/>
+    <mxCell id="101" value="API Gateway&lt;br&gt;HTTP API" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
+      <mxGeometry x="230" y="180" width="60" height="60" as="geometry"/>
     </mxCell>
-    <!-- Lambda -->
-    <mxCell id="6" value="Lambda&lt;br&gt;Health" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
-      <mxGeometry x="540" y="240" width="60" height="60" as="geometry"/>
+    <!-- Lambda GraphQL -->
+    <mxCell id="102" value="Lambda&lt;br&gt;GraphQL&lt;br&gt;(Yoga + Pothos)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
+      <mxGeometry x="440" y="150" width="60" height="60" as="geometry"/>
     </mxCell>
+    <!-- Lambda Health -->
+    <mxCell id="103" value="Lambda&lt;br&gt;Health" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
+      <mxGeometry x="440" y="250" width="60" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Arrow: API GW to Lambda GraphQL -->
+    <mxCell id="104" value="/graphql" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="101" target="102" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <!-- Arrow: API GW to Lambda Health -->
+    <mxCell id="105" value="/health" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="101" target="103" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- ===== Web Stack ===== -->
+    <mxCell id="200" value="rehacul-dev-launch-web Stack" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#147EBA;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;spacingTop=5;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="160" y="400" width="700" height="340" as="geometry"/>
+    </mxCell>
+    <!-- CloudFront -->
+    <mxCell id="201" value="CloudFront" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
+      <mxGeometry x="230" y="510" width="60" height="60" as="geometry"/>
+    </mxCell>
+    <!-- S3 Static Assets -->
+    <mxCell id="202" value="S3&lt;br&gt;Static Assets" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3F8624;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
+      <mxGeometry x="460" y="440" width="60" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Lambda SSR (Next.js) -->
+    <mxCell id="203" value="Lambda&lt;br&gt;SSR (Next.js)&lt;br&gt;via OpenNext" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
+      <mxGeometry x="460" y="560" width="60" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Lambda Image Optimization -->
+    <mxCell id="204" value="Lambda&lt;br&gt;Image Optimization" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
+      <mxGeometry x="660" y="440" width="60" height="60" as="geometry"/>
+    </mxCell>
+    <!-- DynamoDB (ISR cache) -->
+    <mxCell id="205" value="DynamoDB&lt;br&gt;ISR Cache" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;" vertex="1" parent="1">
+      <mxGeometry x="660" y="560" width="60" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Arrow: CloudFront to S3 -->
+    <mxCell id="206" value="静的ファイル" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="201" target="202" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <!-- Arrow: CloudFront to Lambda SSR -->
+    <mxCell id="207" value="SSR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="201" target="203" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <!-- Arrow: CloudFront to Image Optimization -->
+    <mxCell id="208" value="画像最適化" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="202" target="204" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <!-- Arrow: Lambda SSR to DynamoDB -->
+    <mxCell id="209" value="キャッシュ" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="203" target="205" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- ===== Client Arrows ===== -->
     <!-- Arrow: Client to API GW -->
-    <mxCell id="7" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="4" target="5" parent="1">
+    <mxCell id="301" value="API" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="4" target="101" parent="1">
       <mxGeometry relative="1" as="geometry"/>
     </mxCell>
-    <!-- Arrow: API GW to Lambda -->
-    <mxCell id="8" value="/health" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="5" target="6" parent="1">
+    <!-- Arrow: Client to CloudFront -->
+    <mxCell id="302" value="Web" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;fontColor=#232F3E;fontSize=11;" edge="1" source="4" target="201" parent="1">
       <mxGeometry relative="1" as="geometry"/>
     </mxCell>
-    <!-- Future: VPC placeholder -->
-    <mxCell id="10" value="VPC (future)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=2;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc2;strokeColor=#8C4FFF;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;spacingTop=5;dashed=1;dashPattern=5 5;fontColor=#8C4FFF;" vertex="1" parent="1">
-      <mxGeometry x="420" y="130" width="480" height="330" as="geometry"/>
-    </mxCell>
-    <!-- Future: RDS placeholder -->
-    <mxCell id="11" value="RDS MySQL&lt;br&gt;(future)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;outlineConnect=0;fontColor=#8C4FFF;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=2;aspect=fixed;opacity=30;" vertex="1" parent="1">
-      <mxGeometry x="740" y="240" width="60" height="60" as="geometry"/>
-    </mxCell>
-    <!-- Future: Cognito placeholder -->
-    <mxCell id="12" value="Cognito&lt;br&gt;(future)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cognito;outlineConnect=0;fontColor=#8C4FFF;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=2;aspect=fixed;opacity=30;" vertex="1" parent="1">
-      <mxGeometry x="310" y="380" width="60" height="60" as="geometry"/>
-    </mxCell>
-    <!-- Future: S3 placeholder -->
-    <mxCell id="13" value="S3&lt;br&gt;(future)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;outlineConnect=0;fontColor=#8C4FFF;gradientColor=none;fillColor=#3F8624;strokeColor=none;dashed=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=2;aspect=fixed;opacity=30;" vertex="1" parent="1">
-      <mxGeometry x="540" y="380" width="60" height="60" as="geometry"/>
-    </mxCell>
-    <!-- Future: DynamoDB placeholder -->
-    <mxCell id="14" value="DynamoDB&lt;br&gt;(future)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;outlineConnect=0;fontColor=#8C4FFF;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=2;aspect=fixed;opacity=30;" vertex="1" parent="1">
-      <mxGeometry x="740" y="380" width="60" height="60" as="geometry"/>
+
+    <!-- ===== Cross-stack reference ===== -->
+    <!-- Arrow: API Stack to Lambda SSR (env var) -->
+    <mxCell id="400" value="NEXT_PUBLIC_API_URL" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;fontColor=#FF0000;fontSize=10;dashed=1;dashPattern=5 5;" edge="1" source="101" target="203" parent="1">
+      <mxGeometry relative="1" as="geometry"/>
     </mxCell>
   </root>
 </mxGraphModel>
