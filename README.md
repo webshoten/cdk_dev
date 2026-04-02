@@ -107,8 +107,8 @@ AWS_PROFILE=my-cdk pnpm cdk:deploy
 # 別ステージにデプロイ（例: staging）
 AWS_PROFILE=my-cdk pnpm cdk:deploy -- -c stage=staging
 
-# 全スタック削除
-AWS_PROFILE=my-cdk pnpm cdk -- destroy --all
+# 全スタック削除（LLD レイヤー除去 → destroy を安全に実行）
+AWS_PROFILE=my-cdk pnpm cdk:destroy
 
 # .env.local を手動で再生成（デプロイ済みの場合）
 pnpm env:sync

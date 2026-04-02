@@ -7,6 +7,7 @@
     "cdk:synth": "pnpm --filter @crs/infra cdk synth",
     "cdk:deploy": "pnpm --filter @crs/infra cdk deploy --all --outputs-file ../../cdk-outputs.json && scripts/sync-env.sh",
     "cdk:diff": "pnpm --filter @crs/infra cdk diff",
+    "cdk:destroy": "scripts/cdk-destroy.sh",
     "lint": "biome check .",
     "lint:fix": "biome check --fix .",
     "format": "biome format --write .",
