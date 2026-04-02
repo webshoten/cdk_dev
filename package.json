@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "cdk": "pnpm --filter @crs/infra cdk --",
+    "cdk": "pnpm --filter @crs/infra cdk",
     "cdk:synth": "pnpm --filter @crs/infra cdk synth",
     "cdk:deploy": "pnpm --filter @crs/infra cdk deploy --all --outputs-file ../../cdk-outputs.json && scripts/sync-env.sh",
     "cdk:diff": "pnpm --filter @crs/infra cdk diff",
