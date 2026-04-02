@@ -6,9 +6,13 @@
     "cdk": "cdk",
     "synth": "cdk synth",
     "deploy": "cdk deploy",
-    "diff": "cdk diff"
+    "diff": "cdk diff",
+    "lint": "biome check .",
+    "lint:fix": "biome check --fix .",
+    "format": "biome format --write ."
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.10",
     "aws-cdk": "2.1116.0",
     "lambda-live-debugger": "^1.12.0",
     "typescript": "~5.9.3"

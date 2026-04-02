@@ -16,10 +16,7 @@ export const handler = async (event: APIGatewayProxyEventV2) => {
     {
       method: event.requestContext.http.method,
       headers: event.headers as HeadersInit,
-      body:
-        event.body && event.isBase64Encoded
-          ? Buffer.from(event.body, "base64")
-          : event.body,
+      body: event.body && event.isBase64Encoded ? Buffer.from(event.body, "base64") : event.body,
     },
   );
 

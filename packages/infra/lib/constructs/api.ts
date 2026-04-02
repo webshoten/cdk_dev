@@ -1,9 +1,9 @@
-import { Construct } from "constructs";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as path from "node:path";
 import * as apigwv2 from "aws-cdk-lib/aws-apigatewayv2";
 import * as integrations from "aws-cdk-lib/aws-apigatewayv2-integrations";
-import * as path from "path";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { Construct } from "constructs";
 
 export class ApiConstruct extends Construct {
   public readonly apiUrl: string;
