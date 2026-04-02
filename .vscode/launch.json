@@ -10,6 +10,26 @@
       "console": "integratedTerminal",
       "restart": true,
       "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next.js Dev",
+      "runtimeExecutable": "pnpm",
+      "args": ["--filter", "web", "dev"],
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      },
+      "cwd": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full Debug (Lambda + Next.js)",
+      "configurations": ["Lambda Live Debugger", "Next.js Dev"]
     }
   ]
 }

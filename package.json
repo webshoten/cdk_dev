@@ -5,12 +5,15 @@
   "scripts": {
     "cdk": "cdk",
     "synth": "cdk synth",
-    "deploy": "cdk deploy",
+    "deploy": "cdk deploy --all && scripts/sync-env.sh",
     "diff": "cdk diff",
     "lint": "biome check .",
     "lint:fix": "biome check --fix .",
     "format": "biome format --write .",
-    "debug": "lld"
+    "debug": "lld",
+    "dev": "pnpm --filter web dev",
+    "dev:debug": "pnpm run dev & pnpm run debug",
+    "env:sync": "scripts/sync-env.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.10",
