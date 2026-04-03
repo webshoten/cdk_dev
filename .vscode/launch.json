@@ -35,6 +35,7 @@
       "console": "integratedTerminal",
       "envFile": "${workspaceFolder}/packages/web/.env.local",
       "preLaunchTask": "Lambda Live Debugger",
+      "postDebugTask": "Stop Lambda Live Debugger",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",

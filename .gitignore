@@ -16,5 +16,6 @@ cdk-outputs.json
 *.pem
 *.key
 
-# Lambda Live Debugger config
+# Lambda Live Debugger
 lldebugger.config.*
+.lldebugger/

@@ -16,6 +16,14 @@
           "endsPattern": "Debugger started!"
         }
       }
+    },
+    {
+      "label": "Stop Lambda Live Debugger",
+      "type": "shell",
+      "command": "pkill -f lldebugger || true",
+      "presentation": {
+        "reveal": "silent"
+      }
     }
   ]
 }
