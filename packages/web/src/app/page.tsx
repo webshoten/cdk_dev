@@ -19,7 +19,7 @@ export default async function Home() {
 
   return (
     <div>
-      <p>{data.data.hello}</p>
+      <p>{data.data?.hello}</p>
     </div>
   );
 }

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../lldebugger.config.ts"],
-  "sourcesContent": ["import type { LldConfigTs } from \"lambda-live-debugger\";\n\nexport default {\n  framework: \"cdk\",\n  profile: \"my-cdk\",\n  region: \"ap-northeast-1\",\n  subfolder: \"packages/infra\",\n} satisfies LldConfigTs;\n"],
-  "mappings": ";AAEA,IAAO,4BAAQ;AAAA,EACb,WAAW;AAAA,EACX,SAAS;AAAA,EACT,QAAQ;AAAA,EACR,WAAW;AACb;",
-  "names": []
-}
