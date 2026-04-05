@@ -16,13 +16,13 @@ const env = {
 // 他スタックのビルド時環境変数（NEXT_PUBLIC_XXX 等）で参照する場合、
 // スタックを分割して依存関係を明示する必要がある。
 // 同一スタック内では synth 時に未解決トークンとなりビルドに埋め込めないため。
-const apiStack = new ApiStack(app, `rehacul-${stage}-api`, {
+const apiStack = new ApiStack(app, `cdkapp-${stage}-api`, {
   env,
   crossRegionReferences: true,
   stage,
 });
 
-new WebStack(app, `rehacul-${stage}-web`, {
+new WebStack(app, `cdkapp-${stage}-web`, {
   env,
   crossRegionReferences: true,
   stage,
