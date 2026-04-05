@@ -1,6 +1,6 @@
-# CRS SST - CDK
+# CDK App
 
-rehacul_sst（SST）から AWS CDK への移行プロジェクト。
+AWS CDK モノレポプロジェクト。
 
 ## 設計方針
 

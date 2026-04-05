@@ -34,7 +34,7 @@
       "args": ["dev"],
       "console": "integratedTerminal",
       "envFile": "${workspaceFolder}/packages/web/.env.local",
-      "preLaunchTask": "Setup: LLD only",
+      "preLaunchTask": "Setup: Sync env → LLD",
       "postDebugTask": "Cleanup: Stop LLD + CDK Watch",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",

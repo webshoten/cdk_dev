@@ -48,10 +48,17 @@
       "dependsOrder": "sequence"
     },
     {
-      "label": "Setup: LLD only",
+      "label": "Env: Sync .env from CDK outputs",
+      "type": "shell",
+      "command": "scripts/sync-env.sh"
+    },
+    {
+      "label": "Setup: Sync env → LLD",
       "dependsOn": [
+        "Env: Sync .env from CDK outputs",
         "Lambda: Start Live Debugger (LLD)"
-      ]
+      ],
+      "dependsOrder": "sequence"
     },
     {
       "label": "Cleanup: Stop LLD + CDK Watch",
