@@ -24,7 +24,7 @@
         "uriFormat": "%s",
         "action": "debugWithChrome"
       },
-      "cwd": "${workspaceFolder}/packages/web"
+      "cwd": "${workspaceFolder}"
     },
     {
       "type": "node",
@@ -34,14 +34,14 @@
       "args": ["dev"],
       "console": "integratedTerminal",
       "envFile": "${workspaceFolder}/packages/web/.env.local",
-      "preLaunchTask": "Lambda Live Debugger",
+      "preLaunchTask": "CDK Hotswap + LLD",
       "postDebugTask": "Stop Lambda Live Debugger",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
         "action": "debugWithChrome"
       },
-      "cwd": "${workspaceFolder}/packages/web"
+      "cwd": "${workspaceFolder}"
     }
   ]
 }

@@ -2,6 +2,22 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "CDK Watch",
+      "type": "shell",
+      "command": "pnpm cdk watch --all --hotswap",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Detected change",
+          "endsPattern": "deployment time"
+        }
+      }
+    },
+    {
       "label": "Lambda Live Debugger",
       "type": "shell",
       "command": "npx lld",
@@ -18,9 +34,14 @@
       }
     },
     {
+      "label": "CDK Hotswap + LLD",
+      "dependsOn": ["CDK Watch", "Lambda Live Debugger"],
+      "dependsOrder": "sequence"
+    },
+    {
       "label": "Stop Lambda Live Debugger",
       "type": "shell",
-      "command": "pkill -f lldebugger || true",
+      "command": "pkill -f lldebugger || true; pkill -f 'cdk watch' || true",
       "presentation": {
         "reveal": "silent"
       }
