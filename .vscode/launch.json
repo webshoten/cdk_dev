@@ -4,55 +4,29 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Lambda: Live Debugger (LLD only)",
+      "name": "Lambda: Live Debugger (LLD)",
       "runtimeExecutable": "npx",
-      "args": ["lld"],
+      "args": [
+        "lld"
+      ],
+      "env": {
+        "SKIP_NEXT_BUILD": "1"
+      },
       "console": "integratedTerminal",
       "restart": true,
+      "postDebugTask": "Cleanup: Remove LLD Layer",
       "cwd": "${workspaceFolder}"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Next.js: Dev Server only",
+      "name": "Next.js: Dev Server",
       "runtimeExecutable": "pnpm",
-      "args": ["dev"],
+      "args": [
+        "dev:web"
+      ],
       "console": "integratedTerminal",
-      "envFile": "${workspaceFolder}/packages/web/.env.local",
-      "serverReadyAction": {
-        "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s",
-        "action": "debugWithChrome"
-      },
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Dev: Lambda + Next.js + Chrome (no deploy)",
-      "runtimeExecutable": "pnpm",
-      "args": ["dev"],
-      "console": "integratedTerminal",
-      "envFile": "${workspaceFolder}/packages/web/.env.local",
-      "preLaunchTask": "Setup: Sync env → LLD",
-      "postDebugTask": "Cleanup: Stop LLD + CDK Watch",
-      "serverReadyAction": {
-        "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s",
-        "action": "debugWithChrome"
-      },
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Full: Deploy + Watch + Lambda + Next.js + Chrome",
-      "runtimeExecutable": "pnpm",
-      "args": ["dev"],
-      "console": "integratedTerminal",
-      "envFile": "${workspaceFolder}/packages/web/.env.local",
-      "preLaunchTask": "Setup: Deploy → Watch → LLD",
-      "postDebugTask": "Cleanup: Stop LLD + CDK Watch",
+      "preLaunchTask": "Env: Sync config.json from CDK outputs",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",

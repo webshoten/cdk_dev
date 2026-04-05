@@ -20,7 +20,7 @@ cdk/
 │   │   ├── bin/cdk.ts
 │   │   ├── lib/
 │   │   │   ├── api-stack.ts     # API Gateway + Lambda
-│   │   │   ├── web-stack.ts     # CloudFront + Next.js (OpenNext)
+│   │   │   ├── web-stack.ts     # CloudFront + Next.js (cdk-nextjs)
 │   │   │   └── constructs/
 │   │   │       ├── api.ts
 │   │   │       └── web.ts
@@ -32,9 +32,15 @@ cdk/
 │   │   │   └── health/
 │   │   └── package.json
 │   └── web/                     # Next.js フロントエンド
-│       ├── src/app/
+│       ├── src/
+│       │   ├── app/
+│       │   └── context/         # ConfigProvider（config.json 読み込み）
+│       ├── env-mapping.json     # CDK出力 → config.json キーマッピング
 │       ├── next.config.ts
 │       └── package.json
+├── scripts/
+│   ├── check-docker.sh          # Docker 起動チェック
+│   └── sync-env.sh              # CDK出力から各パッケージの public/config.json を生成
 ├── biome.json
 ├── pnpm-workspace.yaml
 ├── package.json
@@ -52,6 +58,7 @@ cdk/
 - pnpm
 - AWS CLI
 - AWS CDK CLI
+- Docker Desktop（cdk-nextjs が Lambda を Docker イメージでビルドするため）
 
 ## セットアップ
 
@@ -101,7 +108,7 @@ AWS_PROFILE=my-cdk pnpm cdk:synth
 AWS_PROFILE=my-cdk pnpm cdk:diff
 
 # 全スタックデプロイ（API → Web の順に自動実行）
-# デプロイ後、API URL 等が packages/web/.env.local に自動反映される
+# デプロイ後、API URL 等が各パッケージの public/config.json に自動反映される
 AWS_PROFILE=my-cdk pnpm cdk:deploy
 
 # 別ステージにデプロイ（例: staging）
@@ -110,39 +117,35 @@ AWS_PROFILE=my-cdk pnpm cdk:deploy -- -c stage=staging
 # 全スタック削除（LLD レイヤー除去 → destroy を安全に実行）
 AWS_PROFILE=my-cdk pnpm cdk:destroy
 
-# .env.local を手動で再生成（デプロイ済みの場合）
+# public/config.json を手動で再生成（デプロイ済みの場合）
 pnpm env:sync
 ```
 
 ステージはデフォルトで `dev-launch`。
 
-## ローカル開発
+## 環境変数（クライアント）
 
-### 前提: 環境変数の準備
+クライアントに渡す環境変数（API URL 等）は `config.json` 方式で管理する。
 
-Next.js が使う環境変数（API URL 等）は `packages/web/.env.local` から読み込まれる。
-このファイルはデプロイ時に自動生成されるが、手動で再生成もできる。
-
-```bash
-# デプロイ時に自動生成される（cdk:deploy に組み込み済み）
-AWS_PROFILE=my-cdk pnpm cdk:deploy
-
-# 手動で再生成する場合（デプロイ済みの cdk-outputs.json から）
-pnpm env:sync
-```
+- **本番**: CDK の `BucketDeployment` + `Source.jsonData` で S3 に `config.json` を生成
+- **ローカル**: `sync-env.sh` が `cdk-outputs.json` から `public/config.json` を生成
+- クライアントは `fetch('/config.json')` で読み込み、React Context で伝搬
 
 > **環境変数を追加するとき:**
 > 1. CDK で `new CfnOutput(this, "MyOutput", { value: ... })` を追加
-> 2. `scripts/env-mapping.json` に `"MyOutput": "NEXT_PUBLIC_MY_VAR"` を追加
-> 3. デプロイすると `.env.local` に自動反映される
+> 2. CDK の `Source.jsonData` に同じキーを追加
+> 3. `env-mapping.json` にマッピングを追加（例: `"MyOutput": "myOutput"`）
+> 4. デプロイすると S3 の `config.json` に反映、`pnpm env:sync` でローカルにも反映
 >
 > マッピングが漏れている場合はスクリプトが警告を出す。
+
+## ローカル開発
 
 ### 起動
 
 ```bash
 # Next.js 開発サーバー (http://localhost:3000)
-pnpm dev
+pnpm dev:web
 
 # Lambda Live Debugger のみ
 pnpm debug
@@ -152,9 +155,8 @@ pnpm dev:debug
 ```
 
 VS Code の F5 からも起動できる（デバッグパネルで選択）:
-- **Next.js Dev** — サーバーサイドにブレークポイント可
-- **Lambda Live Debugger** — Lambda にブレークポイント可
-- **Full Debug (Lambda + Next.js)** — 両方同時起動
+- **Lambda: Live Debugger (LLD)** — Lambda にブレークポイント可。停止時にレイヤー自動除去
+- **Next.js: Dev Server** — Next.js 単体起動（config.json 自動同期）
 
 ## リント・フォーマット
 

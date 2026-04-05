@@ -12,6 +12,9 @@ cdk-outputs.json
 .env
 .env.*
 
+# Generated config for local dev
+public/config.json
+
 # Private keys
 *.pem
 *.key

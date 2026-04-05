@@ -1,19 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useConfig } from "../context/ConfigProvider";
 
 export default function Home() {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const config = useConfig();
 
   useEffect(() => {
-    if (!apiUrl) {
-      setError("NEXT_PUBLIC_API_URL is not configured");
-      return;
-    }
-    fetch(`${apiUrl}/graphql`, {
+    if (!config) return;
+    fetch(`${config.apiUrl}/graphql`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: "{ hello }" }),
@@ -28,10 +25,10 @@ export default function Home() {
         setMessage(data.data?.hello ?? null);
       })
       .catch((e) => setError(e.message));
-  }, [apiUrl]);
+  }, [config]);
 
   if (error) return <p>{error}</p>;
-  if (!message) return <p>Loading...</p>;
+  if (!config || !message) return <p>Loading...</p>;
 
   return (
     <div>

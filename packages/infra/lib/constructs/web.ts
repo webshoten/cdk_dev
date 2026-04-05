@@ -1,6 +1,8 @@
 import * as path from "node:path";
-import { Duration } from "aws-cdk-lib/core";
-import { Nextjs } from "cdk-nextjs-standalone";
+import { Duration } from "aws-cdk-lib";
+import { CacheControl } from "aws-cdk-lib/aws-s3-deployment";
+import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
+import { NextjsGlobalFunctions } from "cdk-nextjs";
 import { Construct } from "constructs";
 
 export interface WebConstructProps {
@@ -13,28 +15,23 @@ export class WebConstruct extends Construct {
   constructor(scope: Construct, id: string, props: WebConstructProps) {
     super(scope, id);
 
-    const nextjs = new Nextjs(this, "Nextjs", {
-      nextjsPath: path.join(__dirname, "../../../web"),
-      environment: {
-        NEXT_PUBLIC_API_URL: props.apiUrl,
-      },
-      // カスタムリソースのタイムアウトを短縮（デフォルト1時間）
-      // LLD レイヤーが残った状態で destroy した場合などに
-      // Lambda が応答できずハングするが、5分で失敗に気づける
-      overrides: {
-        nextjsInvalidation: {
-          awsCustomResourceProps: {
-            timeout: Duration.minutes(5),
-          },
-        },
-        nextjsRevalidation: {
-          insertCustomResourceProps: {
-            serviceTimeout: Duration.minutes(5),
-          },
-        },
-      },
+    const nextjs = new NextjsGlobalFunctions(this, "Nextjs", {
+      buildDirectory: path.join(__dirname, "../../../web"),
+      healthCheckPath: "/api/health",
+      skipBuild: !!process.env.SKIP_NEXT_BUILD,
     });
 
-    this.distributionDomain = nextjs.distribution.distributionDomain;
+    new s3deploy.BucketDeployment(this, "ConfigDeployment", {
+      sources: [
+        s3deploy.Source.jsonData("config.json", { apiUrl: props.apiUrl }),
+      ],
+      destinationBucket: nextjs.nextjsStaticAssets.bucket,
+      distribution: nextjs.nextjsDistribution.distribution,
+      distributionPaths: ["/config.json"],
+      cacheControl: [CacheControl.maxAge(Duration.seconds(300))],
+    });
+
+    this.distributionDomain =
+      nextjs.nextjsDistribution.distribution.distributionDomainName;
   }
 }
