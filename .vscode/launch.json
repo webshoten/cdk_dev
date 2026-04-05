@@ -4,7 +4,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Lambda Live Debugger",
+      "name": "Lambda: Live Debugger (LLD only)",
       "runtimeExecutable": "npx",
       "args": ["lld"],
       "console": "integratedTerminal",
@@ -14,7 +14,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Next.js Dev",
+      "name": "Next.js: Dev Server only",
       "runtimeExecutable": "pnpm",
       "args": ["dev"],
       "console": "integratedTerminal",
@@ -29,13 +29,30 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Full Debug (Lambda + Next.js)",
+      "name": "Dev: Lambda + Next.js + Chrome (no deploy)",
       "runtimeExecutable": "pnpm",
       "args": ["dev"],
       "console": "integratedTerminal",
       "envFile": "${workspaceFolder}/packages/web/.env.local",
-      "preLaunchTask": "CDK Hotswap + LLD",
-      "postDebugTask": "Stop Lambda Live Debugger",
+      "preLaunchTask": "Setup: LLD only",
+      "postDebugTask": "Cleanup: Stop LLD + CDK Watch",
+      "serverReadyAction": {
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      },
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Full: Deploy + Watch + Lambda + Next.js + Chrome",
+      "runtimeExecutable": "pnpm",
+      "args": ["dev"],
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/packages/web/.env.local",
+      "preLaunchTask": "Setup: Deploy → Watch → LLD",
+      "postDebugTask": "Cleanup: Stop LLD + CDK Watch",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",

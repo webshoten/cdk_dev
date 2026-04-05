@@ -2,9 +2,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "CDK Watch",
+      "label": "CDK: Deploy all stacks",
       "type": "shell",
-      "command": "pnpm cdk watch --all --hotswap",
+      "command": "pnpm cdk:deploy"
+    },
+    {
+      "label": "CDK: Watch for infra changes (hotswap)",
+      "type": "shell",
+      "command": "pnpm cdk watch --all --hotswap-fallback",
       "isBackground": true,
       "problemMatcher": {
         "pattern": {
@@ -18,7 +23,7 @@
       }
     },
     {
-      "label": "Lambda Live Debugger",
+      "label": "Lambda: Start Live Debugger (LLD)",
       "type": "shell",
       "command": "npx lld",
       "isBackground": true,
@@ -34,12 +39,22 @@
       }
     },
     {
-      "label": "CDK Hotswap + LLD",
-      "dependsOn": ["CDK Watch", "Lambda Live Debugger"],
+      "label": "Setup: Deploy → Watch → LLD",
+      "dependsOn": [
+        "CDK: Deploy all stacks",
+        "CDK: Watch for infra changes (hotswap)",
+        "Lambda: Start Live Debugger (LLD)"
+      ],
       "dependsOrder": "sequence"
     },
     {
-      "label": "Stop Lambda Live Debugger",
+      "label": "Setup: LLD only",
+      "dependsOn": [
+        "Lambda: Start Live Debugger (LLD)"
+      ]
+    },
+    {
+      "label": "Cleanup: Stop LLD + CDK Watch",
       "type": "shell",
       "command": "pkill -f lldebugger || true; pkill -f 'cdk watch' || true",
       "presentation": {
