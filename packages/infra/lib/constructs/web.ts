@@ -1,7 +1,7 @@
 import * as path from "node:path";
 import { Duration } from "aws-cdk-lib";
-import { CacheControl } from "aws-cdk-lib/aws-s3-deployment";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
+import { CacheControl } from "aws-cdk-lib/aws-s3-deployment";
 import { NextjsGlobalFunctions } from "cdk-nextjs";
 import { Construct } from "constructs";
 
@@ -21,17 +21,17 @@ export class WebConstruct extends Construct {
       skipBuild: !!process.env.SKIP_NEXT_BUILD,
     });
 
+    // NEXT_PUBLIC_* はビルド時にインライン化されるが、CDK synth 時点では
+    // API URL 等が未確定のため使えない。代わりにデプロイ時に config.json を
+    // S3 に生成し、クライアントから fetch('/config.json') で読み込む。
     new s3deploy.BucketDeployment(this, "ConfigDeployment", {
-      sources: [
-        s3deploy.Source.jsonData("config.json", { apiUrl: props.apiUrl }),
-      ],
+      sources: [s3deploy.Source.jsonData("config.json", { apiUrl: props.apiUrl })],
       destinationBucket: nextjs.nextjsStaticAssets.bucket,
       distribution: nextjs.nextjsDistribution.distribution,
       distributionPaths: ["/config.json"],
       cacheControl: [CacheControl.maxAge(Duration.seconds(300))],
     });
 
-    this.distributionDomain =
-      nextjs.nextjsDistribution.distribution.distributionDomainName;
+    this.distributionDomain = nextjs.nextjsDistribution.distribution.distributionDomainName;
   }
 }
