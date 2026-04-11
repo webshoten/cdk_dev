@@ -1,10 +1,11 @@
 #!/usr/bin/env node
+import * as os from "node:os";
 import * as cdk from "aws-cdk-lib/core";
 import { ApiStack } from "../lib/api-stack";
 import { WebStack } from "../lib/web-stack";
 
 const app = new cdk.App();
-const stage = app.node.tryGetContext("stage") || "dev-launch";
+const stage = app.node.tryGetContext("stage") || os.userInfo().username;
 
 const env = {
   account: process.env.CDK_DEFAULT_ACCOUNT,

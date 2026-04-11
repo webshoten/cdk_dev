@@ -23,9 +23,6 @@
 # production
 /build
 
-# config
-/public/config.json
-
 # misc
 .DS_Store
 *.pem

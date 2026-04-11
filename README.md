@@ -22,8 +22,15 @@ cdk/
 │   │   │   ├── api-stack.ts     # API Gateway + Lambda
 │   │   │   ├── web-stack.ts     # CloudFront + Next.js (cdk-nextjs)
 │   │   │   └── constructs/
-│   │   │       ├── api.ts
-│   │   │       └── web.ts
+│   │   │       └── constructs/
+│   │   │       ├── api/
+│   │   │       │   ├── index.ts
+│   │   │       │   ├── graphql.ts
+│   │   │       │   └── health.ts
+│   │   │       ├── nextjs/
+│   │   │       │   └── index.ts
+│   │   │       └── react/
+│   │   │           └── index.ts
 │   │   ├── cdk.json
 │   │   └── package.json
 │   ├── functions/               # Lambda handlers
@@ -31,7 +38,7 @@ cdk/
 │   │   │   ├── graphql/         # Yoga + Pothos
 │   │   │   └── health/
 │   │   └── package.json
-│   └── web/                     # Next.js フロントエンド
+│   └── nextjs/                  # Next.js フロントエンド
 │       ├── src/
 │       │   ├── app/
 │       │   └── context/         # ConfigProvider（config.json 読み込み）
@@ -121,7 +128,7 @@ AWS_PROFILE=my-cdk pnpm cdk:destroy
 pnpm env:sync
 ```
 
-ステージはデフォルトで `dev-launch`。
+ステージ未指定時は OS のユーザー名がデフォルトになる（例: `cdkapp-user-api`）。
 
 ## 環境変数（クライアント）
 
@@ -145,7 +152,7 @@ pnpm env:sync
 
 ```bash
 # Next.js 開発サーバー (http://localhost:3000)
-pnpm dev:web
+pnpm dev:nextjs
 
 # Lambda Live Debugger のみ
 pnpm debug

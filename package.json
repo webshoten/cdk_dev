@@ -5,15 +5,15 @@
   "scripts": {
     "cdk": "pnpm --filter @crs/infra cdk",
     "cdk:synth": "scripts/check-docker.sh && pnpm --filter @crs/infra cdk synth",
-    "cdk:deploy": "scripts/check-docker.sh && pnpm --filter @crs/infra cdk deploy --all --outputs-file ../../cdk-outputs.json && scripts/sync-env.sh",
+    "cdk:deploy": "scripts/check-docker.sh && pnpm --filter @crs/infra cdk deploy --all --require-approval never --outputs-file ../../cdk-outputs.json && scripts/sync-env.sh",
     "cdk:diff": "pnpm --filter @crs/infra cdk diff",
     "cdk:destroy": "scripts/cdk-destroy.sh",
     "lint": "biome check .",
     "lint:fix": "biome check --fix .",
     "format": "biome format --write .",
     "debug": "lld",
-    "dev:web": "pnpm --filter web dev",
-    "dev:debug": "pnpm run dev:web & pnpm run debug",
+    "dev:nextjs": "pnpm --filter nextjs dev",
+    "dev:debug": "pnpm run dev:nextjs & pnpm run debug",
     "env:sync": "scripts/sync-env.sh"
   },
   "devDependencies": {

@@ -7,6 +7,11 @@
       "command": "scripts/sync-env.sh"
     },
     {
+      "label": "Check: Stack deployed",
+      "type": "shell",
+      "command": "scripts/check-deployed.sh"
+    },
+    {
       "label": "Cleanup: Remove LLD Layer",
       "type": "shell",
       "command": "SKIP_NEXT_BUILD=1 npx lld --remove all"

@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib/core";
 import type { Construct } from "constructs";
-import { ApiConstruct } from "./constructs/api";
+import { ApiConstruct } from "./constructs/api/index";
 
 export interface ApiStackProps extends cdk.StackProps {
   stage: string;

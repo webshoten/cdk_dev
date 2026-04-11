@@ -14,6 +14,7 @@
       },
       "console": "integratedTerminal",
       "restart": true,
+      "preLaunchTask": "Check: Stack deployed",
       "postDebugTask": "Cleanup: Remove LLD Layer",
       "cwd": "${workspaceFolder}"
     },
@@ -23,7 +24,7 @@
       "name": "Next.js: Dev Server",
       "runtimeExecutable": "pnpm",
       "args": [
-        "dev:web"
+        "dev:nextjs"
       ],
       "console": "integratedTerminal",
       "preLaunchTask": "Env: Sync config.json from CDK outputs",
