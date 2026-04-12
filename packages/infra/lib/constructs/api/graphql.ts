@@ -7,6 +7,7 @@ import { Construct } from "constructs";
 
 export interface GraphqlApiProps {
   httpApi: apigwv2.HttpApi;
+  authorizer?: apigwv2.IHttpRouteAuthorizer;
 }
 
 export class GraphqlApi extends Construct {
@@ -31,6 +32,7 @@ export class GraphqlApi extends Construct {
       path: "/graphql",
       methods: [apigwv2.HttpMethod.POST],
       integration: new integrations.HttpLambdaIntegration("GraphqlIntegration", fn),
+      authorizer: props.authorizer,
     });
   }
 }

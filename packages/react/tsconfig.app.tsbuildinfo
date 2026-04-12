@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/config.ts","./src/main.tsx","./src/vite-env.d.ts"],"version":"5.9.3"}
+{"root":["./src/global.d.ts","./src/main.tsx","./src/vite-env.d.ts","./src/app/app.tsx","./src/lib/runtime-config.ts","./src/slices/auth/services/configureamplify.ts","./src/slices/auth/ui/authshell.tsx","./src/slices/auth/ui/signinheader.tsx","./src/slices/dashboard/hooks/usedashboardgreeting.ts","./src/slices/dashboard/services/fetchdashboardgreeting.ts","./src/slices/dashboard/ui/dashboardpanel.tsx"],"version":"5.9.3"}

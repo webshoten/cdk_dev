@@ -4,11 +4,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Lambda: Live Debugger (LLD)",
+      "name": "Server (GraphQL)",
       "runtimeExecutable": "npx",
-      "args": [
-        "lld"
-      ],
+      "args": ["lld"],
       "env": {
         "SKIP_NEXT_BUILD": "1"
       },
@@ -21,11 +19,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Next.js: Dev Server",
+      "name": "Next.js (Cloud API)",
       "runtimeExecutable": "pnpm",
-      "args": [
-        "dev:nextjs"
-      ],
+      "args": ["dev:nextjs"],
       "console": "integratedTerminal",
       "preLaunchTask": "Env: Sync config.json from CDK outputs",
       "serverReadyAction": {
@@ -34,6 +30,59 @@
         "action": "debugWithChrome"
       },
       "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "GraphQL: Dev Server",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@crs/functions", "dev"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "React: Dev Server",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "react", "dev"],
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "pattern": "Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      },
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next.js: Dev Server (Local)",
+      "runtimeExecutable": "pnpm",
+      "args": ["dev:nextjs"],
+      "env": {
+        "API_URL": "http://localhost:4000"
+      },
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      },
+      "cwd": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Local (React + GraphQL)",
+      "configurations": ["GraphQL: Dev Server", "React: Dev Server"],
+      "stopAll": true
+    },
+    {
+      "name": "Local (Next.js + GraphQL)",
+      "configurations": ["GraphQL: Dev Server", "Next.js: Dev Server (Local)"],
+      "stopAll": true
     }
   ]
 }

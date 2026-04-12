@@ -10,6 +10,9 @@ import { Construct } from "constructs";
 
 export interface ReactConstructProps {
   apiUrl: string;
+  userPoolId: string;
+  userPoolClientId: string;
+  region: string;
 }
 
 export class ReactConstruct extends Construct {
@@ -59,7 +62,17 @@ export class ReactConstruct extends Construct {
     new s3deploy.BucketDeployment(this, "Deploy", {
       sources: [
         s3deploy.Source.asset(distDir),
-        s3deploy.Source.data("config.js", `window.__CONFIG__={"apiUrl":"${props.apiUrl}"};`),
+        s3deploy.Source.data(
+          "config.js",
+          `window.__CONFIG__=${JSON.stringify({
+            apiUrl: props.apiUrl,
+            cognito: {
+              userPoolId: props.userPoolId,
+              userPoolClientId: props.userPoolClientId,
+              region: props.region,
+            },
+          })};`,
+        ),
       ],
       destinationBucket: bucket,
       distribution,

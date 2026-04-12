@@ -28,4 +28,7 @@ new WebStack(app, `cdkapp-${stage}-web`, {
   crossRegionReferences: true,
   stage,
   apiUrl: apiStack.apiUrl,
+  userPoolId: apiStack.userPoolId,
+  userPoolClientId: apiStack.userPoolClientId,
+  cognitoRegion: apiStack.cognitoRegion,
 });

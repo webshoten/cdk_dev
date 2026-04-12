@@ -6,6 +6,9 @@ import { ReactConstruct } from "./constructs/react/index";
 export interface WebStackProps extends cdk.StackProps {
   stage: string;
   apiUrl: string;
+  userPoolId: string;
+  userPoolClientId: string;
+  cognitoRegion: string;
 }
 
 export class WebStack extends cdk.Stack {
@@ -17,6 +20,9 @@ export class WebStack extends cdk.Stack {
     // });
     const react = new ReactConstruct(this, "React", {
       apiUrl: props.apiUrl,
+      userPoolId: props.userPoolId,
+      userPoolClientId: props.userPoolClientId,
+      region: props.cognitoRegion,
     });
 
     // new cdk.CfnOutput(this, "WebUrl", {

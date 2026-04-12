@@ -11,6 +11,12 @@ AWS CDK モノレポプロジェクト。
 - crossRegionReferences: true（将来のACM等に備える）
 - Biome でリント・フォーマット統一
 
+## ソフトウェアアーキテクチャ
+
+アプリ実装（React の Vertical Slice 構成、`ui/hooks/services` 分割、`config.js` 取り扱い）は以下を参照:
+
+- [docs/software-architecture.md](docs/software-architecture.md)
+
 ## モノレポ構成
 
 ```
